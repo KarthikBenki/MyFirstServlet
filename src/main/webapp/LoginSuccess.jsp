@@ -15,6 +15,5 @@
     <form action="login.html">
         <input type="submit" value="HomePage">
     </form>
-
 </body>
 </html>

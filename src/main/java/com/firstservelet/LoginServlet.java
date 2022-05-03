@@ -35,16 +35,18 @@ public class LoginServlet extends HttpServlet {
         min 3 characters
          */
         if(!user.matches(userRegex)){
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
             PrintWriter out = response.getWriter();
             out.println("<font color=red>Kindly Enter Correct user name</font>");
-            rd.include(request, response);
         }
-
 
         if (userID.equals(user) && password.equals(pwd)) {
             request.setAttribute("user", user);
             request.getRequestDispatcher("LoginSuccess.jsp").forward(request, response);
+        }else {
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
+            PrintWriter out = response.getWriter();
+            out.println("<font color=red> Either user name or password is wrong.</font>");
+            rd.include(request,response);
         }
     }
 }
