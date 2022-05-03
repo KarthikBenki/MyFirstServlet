@@ -12,6 +12,9 @@
 </head>
 <body>
     <h3>Hi <%= request.getAttribute("user")%>,Login Successful.</h3>
-        <a href="/login.html"></a>
+    <form action="login.html">
+        <input type="submit" value="HomePage">
+    </form>
+
 </body>
 </html>
