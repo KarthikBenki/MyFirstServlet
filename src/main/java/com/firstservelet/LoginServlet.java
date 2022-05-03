@@ -14,8 +14,8 @@ import java.io.PrintWriter;
         description = "Login Servlet Testing",
         urlPatterns = {"/LoginServlet"},
         initParams = {
-                @WebInitParam(name = "user", value = "Roshni"),
-                @WebInitParam(name = "password", value = "nikitha")
+                @WebInitParam(name = "user", value = "Karthik"),
+                @WebInitParam(name = "password", value = "benki")
         }
 )
 public class LoginServlet extends HttpServlet {
