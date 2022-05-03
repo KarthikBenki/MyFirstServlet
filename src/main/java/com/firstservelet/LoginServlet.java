@@ -15,7 +15,7 @@ import java.io.PrintWriter;
         urlPatterns = {"/LoginServlet"},
         initParams = {
                 @WebInitParam(name = "user", value = "Karthik"),
-                @WebInitParam(name = "password", value = "benki")
+                @WebInitParam(name = "password", value = "Karthik@123")
         }
 )
 public class LoginServlet extends HttpServlet {
@@ -34,19 +34,45 @@ public class LoginServlet extends HttpServlet {
         Atleast one upper case
         min 3 characters
          */
-        if(!user.matches(userRegex)){
+        if (!user.matches(userRegex)) {
             PrintWriter out = response.getWriter();
             out.println("<font color=red>Kindly Enter Correct user name</font>");
         }
 
+         /*
+            ^ represents starting character of the string.
+            (?=.*[0-9]) represents a digit must occur at least once.
+            (?=.*[a-z]) represents a lower case alphabet must occur at least once.
+            (?=.*[A-Z]) represents an upper case alphabet that must occur at least once.
+            (?=.*[@#$%^&-+=()] represents a special character that must occur at least once.
+            (?=\\S+$) white spaces don’t allowed in the entire string.
+            .{8, 20} represents at least 8 characters and at most 20 characters.
+            $ represents the end of the string.
+             */
+        String passwordRegex = "^(?=.*[0-9])"
+                + "(?=.*[a-z])(?=.*[A-Z])"
+                + "(?=.*[@#$%^&+=])"
+                + "(?=\\S+$).{8,20}$";
+        /*
+        Checking for password regex
+         */
+        if (!pwd.matches(passwordRegex)) {
+            PrintWriter out = response.getWriter();
+            out.println("<font color=red>Kindly Enter Correct password</font>");
+        }
+
+
         if (userID.equals(user) && password.equals(pwd)) {
             request.setAttribute("user", user);
             request.getRequestDispatcher("LoginSuccess.jsp").forward(request, response);
-        }else {
+        } else {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
             PrintWriter out = response.getWriter();
-            out.println("<font color=red> Either user name or password is wrong.</font>");
-            rd.include(request,response);
+            if (!userID.equals(user))
+                out.println("<font color=red>  user name is wrong.</font>");
+            if (!password.equals(pwd))
+                out.println("<font color=red>  password is wrong.</font>");
+            rd.include(request, response);
         }
     }
 }
